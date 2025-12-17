@@ -12,7 +12,7 @@ const FetchItems = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await fetch(`${API_URL}/items`);
+        const response = await fetch(`${API_URL}`);
         const data = await response.json();
         dispatch(itemsActions.addInitialItems(data.items));
       } catch (error) {
