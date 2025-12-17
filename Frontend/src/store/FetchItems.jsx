@@ -9,19 +9,40 @@ const FetchItems = () => {
   const dispatch = useDispatch();
   const items = useSelector(state => state.items);
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const response = await fetch(`${API_URL}/items`);
-        const data = await response.json();
-        dispatch(itemsActions.addInitialItems(data.items));
-      } catch (error) {
-        console.error("Error fetching items:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchItems = async () => {
+  //     try {
+  //       const response = await fetch(`${API_URL}/items`);
+  //       const data = await response.json();
+  //       dispatch(itemsActions.addInitialItems(data.items));
+  //     } catch (error) {
+  //       console.error("Error fetching items:", error);
+  //     }
+  //   };
 
-    fetchItems();
-  }, [dispatch]);
+  //   fetchItems();
+  // }, [dispatch]);
+
+  useEffect(() => {
+  const fetchItems = async () => {
+    try {
+      const response = await fetch(`${API_URL}/items`, {
+        cache: "no-store",
+      });
+
+      if (!response.ok) {
+        throw new Error("API error");
+      }
+
+      const data = await response.json();
+      dispatch(itemsActions.addInitialItems(data.items));
+    } catch (error) {
+      console.error("Fetch failed (backend may be waking up):", error);
+    }
+  };
+
+  fetchItems();
+}, [dispatch]);
 
   return (
     <div className="products-container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
