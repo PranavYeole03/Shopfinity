@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
 import { itemsActions } from "../store/itemsSlice";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = "https://shopfinity-wid9.onrender.com";
 
 const FetchItems = () => {
   const dispatch = useDispatch();
