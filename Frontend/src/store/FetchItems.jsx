@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
-import { setItems } from "../store/itemsSlice";
+import { itemsActions } from "../store/itemsSlice";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -14,7 +14,7 @@ const FetchItems = () => {
       try {
         const response = await fetch(`${API_URL}/items`);
         const data = await response.json();
-        dispatch(setItems(data.items));
+        dispatch(itemsActions.addInitialItems(data.items));
       } catch (error) {
         console.error("Error fetching items:", error);
       }
@@ -24,10 +24,7 @@ const FetchItems = () => {
   }, [dispatch]);
 
   return (
-    <div
-      className="products-container"
-      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
-    >
+    <div className="products-container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
       {items.map(item => (
         <ProductCard key={item.id} item={item} />
       ))}

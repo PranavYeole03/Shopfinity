@@ -13,5 +13,3 @@ const itemsSlice = createSlice({
 export const itemsActions = itemsSlice.actions;
 
 export default itemsSlice;
-
-
