@@ -14,6 +14,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Myntra backend is running' });
+});
+
+
 app.get('/items', async (req, res) => {
   const storedItems = await getStoredItems();
    await new Promise((resolve, reject) => setTimeout(() => resolve(), 2000));
