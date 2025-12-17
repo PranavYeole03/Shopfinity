@@ -20,10 +20,16 @@ app.get('/', (req, res) => {
 
 
 app.get('/items', async (req, res) => {
-  const storedItems = await getStoredItems();
-   await new Promise((resolve, reject) => setTimeout(() => resolve(), 2000));
-  res.json({ items: storedItems });
+  try {
+    const storedItems = await getStoredItems();
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    res.json({ items: storedItems });
+  } catch (error) {
+    console.error("Error reading items:", error);
+    res.status(200).json({ items: [] }); // IMPORTANT
+  }
 });
+
 
 app.get('/items/:id', async (req, res) => {
   const storedItems = await getStoredItems();
